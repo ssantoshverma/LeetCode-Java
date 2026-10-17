@@ -1,0 +1,48 @@
+
+class Solution {
+    public int BinarySearch(int low, int high, int[] nums, int target) {
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public int search(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (nums[low] <= nums[mid]) {
+                // Left half is sorted
+                int ans = BinarySearch(low, mid, nums, target);
+
+                if (ans != -1) {
+                    return ans;
+                } else {
+                    low = mid + 1;
+                }
+            } else {
+                // Right half is sorted
+                int ans = BinarySearch(mid, high, nums, target);
+
+                if (ans != -1) {
+                    return ans;
+                } else {
+                    high = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+}
